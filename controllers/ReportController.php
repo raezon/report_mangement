@@ -10,6 +10,7 @@ use app\models\ReportSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * ReportController implements the CRUD actions for Report model.
@@ -70,7 +71,8 @@ class ReportController extends Controller
         $model1 = new UploadForm();
       
         if (($model->load(Yii::$app->request->post()))){
-   
+            echo $model->date;
+            $model->date = date("Y-m-d", strtotime( $model->date));
             $model->file = UploadedFile::getInstance($model, 'file');
             $model1->file = UploadedFile::getInstance($model, 'file');            
             $model1->file->saveAs('uploads/' . $model1->file->baseName . '.' . $model1->file->extension);
@@ -143,5 +145,20 @@ class ReportController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionPdf($id) {
+        $model =Report::findOne($id);
+        Yii::setAlias('@app', 'uploads/');
+        
+    
+        // This will need to be the path relative to the root of your app.
+        $filePath = '/web/uploads';
+        // Might need to change '@app' for another alias
+        $completePath = Yii::getAlias('@app/'.$model->file);
+      echo $completePath;
+       
+    
+        //return Yii::$app->response->sendFile($completePath, $model->file);
+        $this->redirect((string)$completePath);
     }
 }

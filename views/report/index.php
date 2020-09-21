@@ -30,7 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'date',
-            'file',
+            [
+                'attribute' => 'Icon',
+                'format' => 'raw',
+                'label' => 'File',
+                'value' => function ($model) {
+                return Html::a('PDF', [
+                    'report/pdf',
+                    'id' => $model->id,
+                ], [
+                    'class' => 'btn btn-primary',
+                    'target' => '_blank',
+                ]);
+               },
+          ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
