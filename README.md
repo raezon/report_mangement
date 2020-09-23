@@ -8,4 +8,4 @@
 
 <p>this is a simple report mangement have like futures adding report and expose them into a table with the ability of downloading a spécifique pdf in a spécifique time according to some filter</p>
 
-<img src="https://ibb.co/6RcZ0Kw" height="300px" width="300px">
+<img src="https://i.ibb.co/3y5smxd/Capture.jpg" height="300px" width="300px">
