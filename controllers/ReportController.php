@@ -38,6 +38,7 @@ class ReportController extends Controller
      */
     public function actionIndex()
     {
+        //must filter report by user
         $searchModel = new ReportSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

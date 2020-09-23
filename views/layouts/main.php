@@ -9,7 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
+use app\models\User;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -38,9 +38,10 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Home',   'url' => ['/site/index'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => 'About',  'url' => ['/site/about'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => 'Contact','url' => ['/site/contact'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => 'Report', 'url' => ['/report/index'],'visible' => !(Yii::$app->user->isGuest)],
             Yii::$app->user->isGuest ?
                 ['label' => 'Sign in', 'url' => ['/user/security/login']] :
                 ['label' => 'Sign out (' . Yii::$app->user->identity->username . ')',
