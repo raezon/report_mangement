@@ -29,7 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'date',
+            [
+                'attribute' => 'date',
+                'value' => 'date',
+                'filter' => \yii\jui\DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'date',
+                    'language' => 'en',
+                    'dateFormat' => 'yyyy-MM-dd',
+                    'options' => ['class' => 'form-control']
+                ]),
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'Icon',
                 'format' => 'raw',
