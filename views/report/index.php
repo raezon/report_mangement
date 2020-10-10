@@ -29,32 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            [
-                'attribute' => 'date',
-                'value' => 'date',
-                'filter' => \yii\jui\DatePicker::widget([
-                    'model'=>$searchModel,
-                    'attribute'=>'date',
-                    'language' => 'en',
-                    'dateFormat' => 'yyyy-MM-dd',
-                    'options' => ['class' => 'form-control']
-                ]),
-                'format' => 'raw',
-            ],
-            [
-                'attribute' => 'Icon',
-                'format' => 'raw',
-                'label' => 'File',
-                'value' => function ($model) {
-                return Html::a('PDF', [
-                    'report/pdf',
-                    'id' => $model->id,
-                ], [
-                    'class' => 'btn btn-primary',
-                    'target' => '_blank',
-                ]);
-               },
-          ],
+            'date',
+            'file',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

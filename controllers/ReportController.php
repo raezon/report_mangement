@@ -4,13 +4,10 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Report;
-use app\models\UploadForm;
-use yii\web\UploadedFile;
 use app\models\ReportSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Url;
 
 /**
  * ReportController implements the CRUD actions for Report model.
@@ -38,7 +35,6 @@ class ReportController extends Controller
      */
     public function actionIndex()
     {
-        //must filter report by user
         $searchModel = new ReportSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -69,33 +65,14 @@ class ReportController extends Controller
     public function actionCreate()
     {
         $model = new Report();
-        $model1 = new UploadForm();
-      
-        if (($model->load(Yii::$app->request->post()))){
-            echo $model->date;
-            $model->date = date("Y-m-d", strtotime( $model->date));
-            $model->file = UploadedFile::getInstance($model, 'file');
-            $model1->file = UploadedFile::getInstance($model, 'file');            
-            $model1->file->saveAs('uploads/' . $model1->file->baseName . '.' . $model1->file->extension);
-            
-        
-            if($model->save()){
 
-            }else{
-                
-                print_r($model->getErrors());
-                die();
-            }
-        
-            
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-  
+
         return $this->render('create', [
             'model' => $model,
-            'model1'=>$model1
         ]);
-       
     }
 
     /**
@@ -146,20 +123,5 @@ class ReportController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-    public function actionPdf($id) {
-        $model =Report::findOne($id);
-        Yii::setAlias('@app', 'uploads/');
-        
-    
-        // This will need to be the path relative to the root of your app.
-        $filePath = '/web/uploads';
-        // Might need to change '@app' for another alias
-        $completePath = Yii::getAlias('@app/'.$model->file);
-      echo $completePath;
-       
-    
-        //return Yii::$app->response->sendFile($completePath, $model->file);
-        $this->redirect((string)$completePath);
     }
 }
